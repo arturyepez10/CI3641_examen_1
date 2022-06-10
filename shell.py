@@ -190,6 +190,8 @@ class BuddySystemCMD(Cmd):
       self.send_liberar(command)
     elif self.match_command('MOSTRAR', line):
       self.send_mostrar()
+    else:
+      self.handle_output('ERROR: comando no reconocido (\'' + line + '\').')
 
   # -------------- MISCELÁNEA --------------
   def handle_output(self, line: str, color: str = BLUE, end = '\n'):
