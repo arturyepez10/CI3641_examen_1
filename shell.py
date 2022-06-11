@@ -6,94 +6,99 @@ import os
 import re
 
 # locals
-from buddySystem import BuddySystem
+from TDiagramHandler import TDiagramHandler
 from utils.constants import *
 
 # ------------------------ REPL ----------------------------- #
-class BuddySystemCMD(Cmd):
-  """Intérprete de línea de comandos para la REPL cliente del manejador de espacio BuddySystem.
+class TDiagramCMD(Cmd):
+  """Intérprete de línea de comandos para la REPL del manejador de Diagramas T.
     
-  Aplica los métodos principales para la REPL de BuddySystem. Utiliza los métodos
+  Aplica los métodos principales para la REPL de TDiagramHandler. Utiliza los métodos
   base de Cmd, personalizados para ofrecer las funcionalidades especificadas.
   
   Atributos:
-    bs: Instancia de la máquina virtual que recrea a BuddySystem.
+    handler: Instancia del manejador de Diagramas T.
   """
 
-  prompt = f'{GREEN}accion => {RESET}{BOLD}'
+  prompt = f'{GREEN}$> {RESET}{BOLD}'
 
   # Mensajes de la REPL
-  intro = (f'¡Bienvenido a BuddySystem!\n'
+  intro = (f'¡Bienvenido al manejador de Diagramas T!\n'
     'Utiliza "?" para mostrar los comandos disponibles.')
   doc_header = ('''Lista de comandos basicos (escribe 'help <nombre>' '''
     'para informacion detallada)')
   misc_header = ('''Lista de funciones disponibles (escribe 'help '''
     '''<nombre>' para informacion detallada)''')
 
-  def __init__(self, space_qty: int):
-    # Llama el constructor de la superclase e inicializa la máquina virtual
+  def __init__(self):
+    # Llama el constructor de la superclase e inicializa TDiagramHandler
     Cmd.__init__(self)
-    self.bs = BuddySystem(space_qty)
+    self.handler = TDiagramHandler()
 
-  # -------------- MÉTODOS QUE ENVIAN A BUDDY SYSTEM --------------
-  def send_reservar(self, command: str):
-    """Envía un comando al reservador de memoria del Buddy System.
+  # -------------- MÉTODOS QUE ENVIAN A TDIAGRAMHANDLER --------------
+  def send_definir(self, command: str):
+    """Envía un comando a TDiagramHandler.
 
-    El reservador procesa la entrada y reserva la cantidad de memoria, o indica error en caso de haber.
+    El manejador procesa la entrada y define segun el tipo requerido, o indica error en caso de haber.
     """
+    # Output
+    result = ''
 
-    try:
-      # Entrada
-      [name, space] = command.split(' ')
+    # Debemos ver que se esta definienddo
+    if self.match_command('PROGRAMA', command):
+      arguments = command[8:].strip().split(' ')
 
-      # Manejador de memoria
-      out = self.bs.allocate(name, int(space))
+      # Verificamos que el numero de argumentos sea el correcto
+      if len(arguments) == 2:
+        try:
+          # Agregamos el programa mediante el manejador
+          program = self.handler.addProgram(arguments[0], arguments[1])
 
-      self.handle_output(out)
-    except ValueError:
-      self.handle_output('ERROR: Incorrecto numero o tipo de argumentos.')
+          result = 'Se definio el ' + str(program)
+        except ValueError:
+          result = 'ERROR: Ya existe un programa llamado \'' + arguments[0] + '\'.'
+      else:
+        result = 'ERROR: numero incorrecto de argumentos para el tipo <PROGRAMA>.'
 
-  def send_liberar(self, command: str):
-    """Envía un comando al liberador de memoria del Buddy System.
+    elif self.match_command('TRADUCTOR', command):
+      arguments = command[9:].strip().split(' ')
 
-    El liberador procesa la entrada y libera la memoria reservada bajo el nombre indicado, o indica
-    error en caso de haber.
+      # Verificamos que el numero de argumentos sea el correcto
+      if len(arguments) == 3:
+        # Agregamos el traductor mediante el manejador
+        translator = self.handler.addTranslator(arguments[0], arguments[1], arguments[2])
+
+        result = 'Se definio un' + str(translator)
+      else:
+        result = 'ERROR: numero incorrecto de argumentos para el tipo <TRADUCTOR>.'
+
+    elif self.match_command('TRADUCTOR', command):
+      arguments = command[9:].strip().split(' ')
+
+      # Verificamos que el numero de argumentos sea el correcto
+      if len(arguments) == 2:
+        # Agregamos el interprete mediante el manejador
+        interpreter = self.handler.addInterpreter(arguments[0], arguments[1])
+
+        result = 'Se definio un' + str(interpreter)
+      else:
+        result = 'ERROR: numero incorrecto de argumentos para el tipo <INTERPRETE>.'
+
+    # Imprimimos por salida estandar el resultado
+    self.handle_output(result)
+
+  def send_ejecutable(self, command: str):
+    """Envía un comando al manejador de diagramas T.
+
+    El manejador procesa la entrada e indica si ese programa -en caso de existir- puede ser ejecutable, o
+    indica error en caso de haber.
     """
+    pass
 
-    try:
-      # Manejador de memoria
-      out = self.bs.free(command)
-
-      self.handle_output(out)
-    except ValueError:
-      self.handle_output('ERROR: Incorrecto numero o tipo de argumentos.')
-
-  def send_mostrar(self):
-    """Envía un comando al manejador de memoria del Buddy System, para mostrar una representacion grafica de la lista
-    de bloques.
-
-    El liberador procesa la entrada y muestra la informacion por la salida estandar.
-    """
-
-    # Recogemos la data que devuelve el Buddy System
-    data = self.bs.show()
-
-    # Deconstruimos los valores
-    total_memory : int = data['total_memory']
-    total_free_memory : int = data['total_free_memory']
-    memory_blocks : list[dict[str, any]] = data['memory_blocks']
-
-    # Show header
-    self.handle_output('# ------------------------------------ #')
-    self.handle_output('# RESUMEN DE USO DE BLOQUES DE MEMORIA #')
-    self.handle_output('# ------------------------------------ #')
-    self.handle_output('  total = ' + str(total_memory) + ' bl.', end=' | ')
-    self.handle_output('libre = ' + str(total_free_memory) + ' bl.')
-
-    self.output_memory_blocks(memory_blocks, total_memory=total_memory)
 
   # -------------- COMANDOS DE DOCUMENTACION DE COMANDOS EN REPL --------------
-  def help_reservar(self):
+  # TODO: cambiar texto
+  def help_definir(self):
     print(dedent('''
       Aplica el manejador del Buddy System para reservar memoria.
 
@@ -101,9 +106,10 @@ class BuddySystemCMD(Cmd):
       del Buddy System. En caso de error, se le notifica al usuario el problema.
 
       Su ejecucion se realiza mediante:
-      >>> RESERVAR <nombre> <espacio>'''))
+      >>> DEFINIR <tipo> [<argumentos>]'''))
 
-  def help_liberar(self):
+  # TODO: cambiar texto
+  def help_ejecutable(self):
     print(dedent('''
       Aplica el manejador del Buddy System para liberar memoria ya reservada.
 
@@ -111,30 +117,7 @@ class BuddySystemCMD(Cmd):
       del Buddy System. En caso de error, se le notifica al usuario el problema.
 
       Su ejecucion se realiza mediante:
-      >>> LIBERAR <nombre>'''))
-
-  # TODO: completar
-  def help_mostrar(self):
-    print(dedent('''
-      Imprime por salida estándar una lista de errores almacenados hasta
-        el momento, en orden cronológico, con el siguiente formato:
-
-        [
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-                    .                 .                     .
-                    .                 .                     .
-                    .                 .                     .
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-        ]
-    --------------
-      Aplica el manejador del Buddy System para liberar memoria ya reservada.
-
-      El manejador se encarga de procesar la entrada para enviarlo a la instancia
-      del Buddy System. En caso de error, se le notifica al usuario el problema.
-
-      Su ejecucion se realiza mediante:
-      >>> MOSTRAR'''))
+      >>> EJECUTABLE <nombre>'''))
 
   # -------------- MÉTODOS SUPERCLASE CUSTOMIZADOS --------------
   def cmdloop(self, intro = None):
@@ -142,13 +125,13 @@ class BuddySystemCMD(Cmd):
     print(self.intro)
     while True:
       try:
-        super(BuddySystemCMD, self).cmdloop(intro='')
+        super(TDiagramCMD, self).cmdloop(intro='')
         break
       except KeyboardInterrupt:
         self.handle_output(f'\n(Para salir, utiliza el comando SALIR o escribe .)')
 
   def do_exit(self, line: str) -> bool:
-    """Finaliza el CMD/REPL de BuddySystem. Retorna True.
+    """Finaliza el CMD/REPL del manejador de diagramas T. Retorna True.
     
     Se puede ejecutar de dos maneras:
       >>> exit
@@ -176,20 +159,18 @@ class BuddySystemCMD(Cmd):
     """Procesador de entrada por defecto.
 
     Retorna:
-      True si se termina la ejecucion de la VM.
+      True si se termina la ejecucion del manejador de diagramas T.
       None cuando se interpreta un comando e imprime su salida.
     """
 
     if self.match_command('SALIR', line):
       return self.do_exit(line)
-    elif self.match_command('RESERVAR', line):
-      command = line[8:].strip()
-      self.send_reservar(command)
-    elif self.match_command('LIBERAR', line):
+    elif self.match_command('DEFINIR', line):
       command = line[7:].strip()
-      self.send_liberar(command)
-    elif self.match_command('MOSTRAR', line):
-      self.send_mostrar()
+      self.send_definir(command)
+    elif self.match_command('EJECUTABLE', line):
+      command = line[10:].strip()
+      self.send_ejecutable(command)
     else:
       self.handle_output('ERROR: comando no reconocido (\'' + line + '\').')
 
@@ -212,40 +193,3 @@ class BuddySystemCMD(Cmd):
       line: Línea a analizar.
     '''
     return bool(re.match(f'{name}($| )', line, re.IGNORECASE))
-
-  def output_memory_blocks(self, blocks: list[dict[str, any]], total_memory: int) -> None:
-    """Imprime por salida estandar toda la informacion de los bloques de memoria que recibe
-    como parametros.
-    """
-
-    # Contador de fragmentacion interna total acumulada
-    total_frag = 0
-
-    self.handle_output('')
-    self.handle_output('  uso de bloques de memoria')
-    self.handle_output('  -------------------------')
-
-    # Recorremos todos los bloques de memoria
-    for index, block in enumerate(blocks):
-      self.handle_output('    ', end=' ')
-
-      self.handle_output('#' + str(index) + ' | ' + str(block['starts_in']) + ' ->', end=' ')
-
-      # Si el bloque esta libre, el output es diferente
-      if block['isFree']:
-        self.handle_output('LIBRE' + ' ; ' + 'memoria = ' + str(block['size']) + ' bl.')
-      else:
-        total_frag += block['size'] - block['real_size']
-        
-        # Hacemos output de la informacion del bloque
-        self.handle_output(block['name'] + ' ; ' + 'memoria = ' + str(block['size']) + ' bl.', end= ' ')
-
-        # Output de la informacion relacionada a la fragmentacion interna de este bloque de memoria
-        frag = 100 - (block['real_size'] / block['size']) * 100
-        self.handle_output('; frag-int = ' + str(round(frag, 2)) + '%')
-
-    # Informamos los datos globales sobre la fragmentacion interna
-    self.handle_output('')
-    self.handle_output('  Fragmentacion Interna Total = ' + str(total_frag), end=' ')
-    total_frag = 100 - (total_frag / total_memory) * 100
-    self.handle_output('; % Fragmentacion Interna Total = ' + str(round(total_frag, 2)))

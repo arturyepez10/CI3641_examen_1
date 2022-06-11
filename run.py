@@ -3,15 +3,15 @@
 from sys import argv
 
 # locals
-from shell import BuddySystemCMD
+from shell import TDiagramCMD
 
 # ------------------------ INIT ----------------------------- #
 if __name__ == '__main__':
   enter = True
 
-  if len(argv) == 2:
-    repl = BuddySystemCMD(int(argv[1]))
+  if len(argv) == 1:
+    repl = TDiagramCMD()
 
     repl.cmdloop()
   else:
-    raise ValueError('Necesita 1 parametros.')
+    raise ValueError('Cantidad invalida de parametros.')
