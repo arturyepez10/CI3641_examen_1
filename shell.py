@@ -41,7 +41,7 @@ class TDiagramCMD(Cmd):
 
     El manejador procesa la entrada y define segun el tipo requerido, o indica error en caso de haber.
     """
-    # Output
+    # Variable donde se guarda el resultado de la accion a realizar
     result = ''
 
     # Debemos ver que se esta definienddo
@@ -97,13 +97,19 @@ class TDiagramCMD(Cmd):
 
 
   # -------------- COMANDOS DE DOCUMENTACION DE COMANDOS EN REPL --------------
-  # TODO: cambiar texto
   def help_definir(self):
     print(dedent('''
-      Aplica el manejador del Buddy System para reservar memoria.
+      Aplica el manejador de Diagramas T, para definir un <tipo>.
 
       El manejador se encarga de procesar la entrada para enviarlo a la instancia
-      del Buddy System. En caso de error, se le notifica al usuario el problema.
+      del manejador de Diagramas T. En caso de error, se le notifica al usuario el problema.
+
+      Los tipos disponibles para definir son:
+      - PROGRAMA
+      - TRADUCTOR
+      - INTERPRETADOR
+
+      Cada tipo tiene sus propios argumentos a ser tomados en cuenta.
 
       Su ejecucion se realiza mediante:
       >>> DEFINIR <tipo> [<argumentos>]'''))
@@ -189,7 +195,7 @@ class TDiagramCMD(Cmd):
     '''Retorna un booleano indicando si la línea contiene un comando.
     
     Argumentos:
-      name: Nombre del comando magico.
+      name: Nombre del comando.
       line: Línea a analizar.
     '''
     return bool(re.match(f'{name}($| )', line, re.IGNORECASE))
