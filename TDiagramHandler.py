@@ -64,3 +64,29 @@ class TDiagramHandler:
     self.interpreters.append(i)
 
     return i
+
+  # -------------- EJECUCION --------------
+  def is_executable(self, program_name: str) -> bool:
+    '''Verifica si un programa es ejecutable en la maquina.
+    '''
+    # Buscamos si existe un programa con ese nombre
+    program = None
+    for p in self.programs:
+      if p.name == program_name:
+        program = p
+        break
+    
+    if program is None:
+      raise ValueError('No existe un programa con ese nombre.')
+
+  # -------------- MISCELÁNEA --------------
+  def is_reachable(self, language_name: str) -> str:
+
+    # Todo lenguaje escrito en lenguaje de maquina ('LOCAL') es ejecutable
+    if language_name.upper() == 'LOCAL':
+      return True
+
+    # Intentamos ver si existen otras asociaciones para llegar a lenguaje de maquina
+    else:
+
+      return False
