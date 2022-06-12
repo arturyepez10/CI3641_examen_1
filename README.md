@@ -31,3 +31,33 @@ Las respuestas fueron alojadas en diferentes ramas del repositorio. Las ramas di
 En cada una de las ramas, se pueden encontrar los archivos que forman su respectiva respuesta y ademas, en este mismo archivo se extiende para presentar una descripcion del problema, detalles de la implementacion y formas de uso.
 
 ---
+
+## MODULO DE CUATERNIONES
+
+Para esta pregunta se utilizo el lenguaje de programacion `Python`[^1].
+
+Dado que necesitabamos una forma de poder interactuar exclusivamente entre cuaterniones, se decidio modelar el tipo `Cuaternion` como una clase.
+
+La razon principal por la que se decidio modelar el tipo `Cuaternion` como una clase fue porque las clases se utilizan para modelar objetos, en los cuales podemos sobrecargar (o definir) operaciones, como lo fueron las siguientes: suma (`+`), producto (`*`), valor absoluto (`+ _`) y conjugada (`~`).
+
+Ahora, una vez definidas esas operaciones de esa forma el lenguaje permite utilizar los operadores aritmeticos asocioados a las operaciones sin necesidad de directamente llamarlas.
+
+Asi entonces, el uso de la libreria en el mismo lenguaje va de la siguiente manera:
+```
+# Importamos la libreria
+from Cuaterniones import Cuaternion
+
+# Definimos valores/instancias de cuaterniones
+a = Cuaternion(1, 0, 0, 0)
+b = Cuaternion(0, 1, 0, 0)
+
+# Podemos operar de forma aritmetica
+print('Suma de cuaterniones: ', a + b)
+print('Suma de un escalar: ', a + 1)
+print('Conjugada: ', ~a)
+print('Productos de cuaterniones: ', a * b)
+print('Producto de cuaternion por escalar: ', a * 2)
+print('Valor absoluto: ', +a)
+```
+
+[^1]: Nota: Inicialmente se planteo como un modulo para Haskell, pero luego de algunos problemas que no pudieron ser solucionados por cuestion de tiempo, se decidio que se utilizara el lenguaje de programacion `Python` para lograr llegar a una solucion definitva. Se puede checar la carpeta `alternativo/`
