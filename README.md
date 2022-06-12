@@ -56,7 +56,11 @@ python run.py
 
 Esto da inicio al simulador de `REPL`, donde se pueden utilizar los comandos descritos en los requerimientos del programa.
 
-[^1]:
-  En el REPL, todos los comandos son ajenos a __"case insensitive"__.
-  Si te sientes agobiado por la cantidad de informacion, prueba a utilizar el comando `clear` :)
-  Si quieres conocer la documentacion de un comando, simplemente escribe `help <comando>` en el REPL, o `help`/`?` para conocer la lista de comandos.
+---
+### Pie de Pagina
+
+- En el REPL, todos los comandos son ajenos a __"case insensitive"__.
+
+- Si te sientes agobiado por la cantidad de informacion, prueba a utilizar el comando `clear` :)
+
+- Si quieres conocer la documentacion de un comando, simplemente escribe `help <comando>` en el REPL, o `help`/`?` para conocer la lista de comandos.
