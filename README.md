@@ -37,7 +37,7 @@ En cada una de las ramas, se pueden encontrar los archivos que forman su respect
 Para esta pregunta se utilizo el lenguaje de programacion `Python`.
 
 
-Dado que el ejercicio requiere una interfaz que permita de forma interactiva ingresar comandos, se hizo la implementacion utilizando principios del paradigma de programacion orientado a objetos. Donde, entre las librerias de `Python`, se encuentra una que se puede utilizar para simular una `CMD` o `SHELL` al correr el script, totalmente personalizable[^note].
+Dado que el ejercicio requiere una interfaz que permita de forma interactiva ingresar comandos, se hizo la implementacion utilizando principios del paradigma de programacion orientado a objetos. Donde, entre las librerias de `Python`, se encuentra una que se puede utilizar para simular una `CMD` o `SHELL` al correr el script, totalmente personalizable[^1].
 
 Luego, se crearon tres modelos de datos tal que representen a los *Diagramas T* (ubicado en `models.py`):
 - `Program`, simulando a un programa definido en una computadora.
@@ -56,11 +56,7 @@ python run.py
 
 Esto da inicio al simulador de `REPL`, donde se pueden utilizar los comandos descritos en los requerimientos del programa.
 
-[^note]:
-    En el REPL, todos los comandos son ajenos a __"case insensitive"__.
-
-[^note]:
-    Si te sientes agobiado por la cantidad de informacion, prueba a utilizar el comando `clear` :)
-
-[^note]:
-    Si quieres conocer la documentacion de un comando, simplemente escribe `help <comando>` en el REPL, o `help`/`?` para conocer la lista de comandos.
+[^1]:
+  En el REPL, todos los comandos son ajenos a __"case insensitive"__.
+  Si te sientes agobiado por la cantidad de informacion, prueba a utilizar el comando `clear` :)
+  Si quieres conocer la documentacion de un comando, simplemente escribe `help <comando>` en el REPL, o `help`/`?` para conocer la lista de comandos.
