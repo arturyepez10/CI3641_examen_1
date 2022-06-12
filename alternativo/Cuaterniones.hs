@@ -1,40 +1,28 @@
-{-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE UnicodeSyntax #-}
+{-# OPTIONS_GHC -Wno-missing-methods #-}
 
+-- Se define los elementos del modulo que se exportan
+module Cuaterniones( Cuaternion ( Cuaternion ) ) where
+
+-- Se define el tipo Cuaternion
 data Cuaternion =
   Cuaternion Integer Integer Integer Integer
   deriving (Show, Eq)
 
+-- Modificamos la instancia `Num` para
 instance Num Cuaternion where
+  -- Suma entre cuaterniones
   (Cuaternion a b c d) + (Cuaternion a' b' c' d') =
     Cuaternion (a + a') (b + b') (c + c') (d + d')
 
-  (*) :: Cuaternion -> Cuaternion -> Cuaternion
   (Cuaternion a b c d) * (Cuaternion a' b' c' d') =
     Cuaternion (a * a' - b * b' - c * c' - d * d')
-               (a * b' + b * a' + c * d' - d * c')
-               (a * c' + c * a' + d * b' - b * d')
-               (a * d' + d * a' + b * c' - c * b')
+              (a * b' + b * a' + c * d' - d * c')
+              (a * c' + c * a' + d * b' - b * d')
+              (a * d' + d * a' + b * c' - c * b')
 
-  -- (*) :: Cuaternion -> Num -> Cuaternion
-  -- (Cuaternion a b c d) * n = Cuaternion (a * n) (b * n) (c * n) (d * n)
-
-  
-
+  -- Negacion de un cuaternion, se usa con el operador (-)
   negate (Cuaternion a b c d) =
     Cuaternion a (negate b) (negate c) (negate d)
 
-  -- abs :: Cuaternion -> Float
-  -- abs (Cuaternion a b c d) = (fromIntegral (a^2 + b ^2 + c ^2 + d ^2))
-
+  -- Construccion de un cuaternion desde un entero, para operaciones con escalares
   fromInteger i = Cuaternion (fromInteger i) 0 0 0
-
-
--- (*) :: Cuaternion -> Integer -> Cuaternion
--- (Cuaternion a b c d) * n = Cuaternion (a * n) (b * n) (c * n) (d * n)
-
-  
-
--- (~) :: Cuaternion -> Cuaternion
--- (~) _ (Cuaternion a b c d) = negate (Cuaternion a b c d)
-

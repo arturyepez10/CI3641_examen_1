@@ -40,14 +40,14 @@ Dado que necesitabamos una forma de poder interactuar exclusivamente entre cuate
 
 La razon principal por la que se decidio modelar el tipo `Cuaternion` como una clase fue porque las clases se utilizan para modelar objetos, en los cuales podemos sobrecargar (o definir) operaciones, como lo fueron las siguientes: suma (`+`), producto (`*`), valor absoluto (`+ _`) y conjugada (`~`).
 
-Ahora, una vez definidas esas operaciones de esa forma el lenguaje permite utilizar los operadores aritmeticos asocioados a las operaciones sin necesidad de directamente llamarlas.
+Ahora, una vez definidas esas operaciones de esa forma el lenguaje permite utilizar los operadores aritmeticos asocioados a las operaciones sin necesidad de directamente llamar a ninguna funcion.
 
 Asi entonces, el uso de la libreria en el mismo lenguaje va de la siguiente manera:
 ```
 # Importamos la libreria
 from Cuaterniones import Cuaternion
 
-# Definimos valores/instancias de cuaterniones
+# Definimos valores/instancias de cuaterniones de la siguiente forma
 a = Cuaternion(1, 0, 0, 0)
 b = Cuaternion(0, 1, 0, 0)
 
