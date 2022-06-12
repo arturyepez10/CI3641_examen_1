@@ -68,19 +68,19 @@ class TDiagramCMD(Cmd):
         # Agregamos el traductor mediante el manejador
         translator = self.handler.addTranslator(arguments[0], arguments[1], arguments[2])
 
-        result = 'Se definio un' + str(translator)
+        result = 'Se definio un ' + str(translator)
       else:
         result = 'ERROR: numero incorrecto de argumentos para el tipo <TRADUCTOR>.'
 
-    elif self.match_command('TRADUCTOR', command):
-      arguments = command[9:].strip().split(' ')
+    elif self.match_command('INTERPRETE', command):
+      arguments = command[10:].strip().split(' ')
 
       # Verificamos que el numero de argumentos sea el correcto
       if len(arguments) == 2:
         # Agregamos el interprete mediante el manejador
         interpreter = self.handler.addInterpreter(arguments[0], arguments[1])
 
-        result = 'Se definio un' + str(interpreter)
+        result = 'Se definio un ' + str(interpreter)
       else:
         result = 'ERROR: numero incorrecto de argumentos para el tipo <INTERPRETE>.'
 
