@@ -13,9 +13,10 @@ class TDiagramHandler:
 
   # -------------- CONSTRUCTOR --------------
   def __init__(self) -> None:
-    self.programs = []
-    self.translators = []
-    self.interpreters = []
+    self.programs : list[Program] = []
+    self.translators : list[Translator] = []
+    self.interpreters : list[Interpreter] = []
+    self.executable_languages = ['LOCAL']
 
   # -------------- INICIALIZADORES --------------
   def addProgram(self, name: str, language: str) -> Program:
@@ -44,10 +45,17 @@ class TDiagramHandler:
     # TODO: check if already exists (no obligatorio)
     
     # Nuevo traductor
-    t = Translator(base_language=base_language, origin_language=origin_language, destination_language=destination_language)
+    t = Translator(
+      base_language=base_language,
+      origin_language=origin_language,
+      destination_language=destination_language
+    )
 
     # Lo agregamos a la lista de traductores
     self.translators.append(t)
+
+    # Verificamos si se genera un lenguaje ejecutable
+    self.update_executable_languages()
 
     return t
 
@@ -62,6 +70,9 @@ class TDiagramHandler:
 
     # Lo agregamos a la lista de traductores
     self.interpreters.append(i)
+
+    # Verificamos si se genera un lenguaje ejecutable
+    self.update_executable_languages()
 
     return i
 
@@ -79,14 +90,43 @@ class TDiagramHandler:
     if program is None:
       raise ValueError('No existe un programa con ese nombre.')
 
-  # -------------- MISCELÁNEA --------------
-  def is_reachable(self, language_name: str) -> str:
-
-    # Todo lenguaje escrito en lenguaje de maquina ('LOCAL') es ejecutable
-    if language_name.upper() == 'LOCAL':
-      return True
-
-    # Intentamos ver si existen otras asociaciones para llegar a lenguaje de maquina
     else:
+      # Se vuelve a verificar los lenguaje ejecutables
+      self.update_executable_languages()
 
+      # Buscamos si el lenguaje en el que esta escrito es ejecutable
+      for exec_lang in self.executable_languages:
+        if exec_lang == program.language:
+          return True
       return False
+
+  # -------------- MISCELÁNEA --------------
+  def update_executable_languages(self):
+    '''Actualiza la lista de lenguajes ejecutables.
+    '''
+    # Nuevos lenguajes ejectuables
+    new_exec_lang = []
+
+    # --------- Verificamos si los interpretes generan lenguajes ejectuables
+    for interpreter in self.interpreters:
+      # Vemos todos los lenguajes ejecutables
+      for exec_lang in self.executable_languages:
+        # Si el lenguaje en el que esta escrito el interprete es ejecutable, 
+        # entonces el lenguaje interpretado puede ejecutarse
+        if exec_lang == interpreter.base:
+          new_exec_lang.append(interpreter.language)
+
+    # Actualizamos la lista de lenguajes ejectuables
+    self.executable_languages.extend(new_exec_lang)
+
+    # --------- Verificamos si los traductores generan lenguajes ejecutables
+    new_exec_lang = []
+
+    for translator in self.translators:
+      # Si el traductor es ejecutable y el lenguaje generado ejecutable, el lenguaje de origen es ejecutable
+      if (translator.base in self.executable_languages) and (translator.destination in self.executable_languages):
+        new_exec_lang.append(translator.origin)
+
+    # Actualizamos la lista de lenguajes ejectuables
+    self.executable_languages.extend(new_exec_lang)
+

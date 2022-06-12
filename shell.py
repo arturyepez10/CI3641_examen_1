@@ -93,8 +93,20 @@ class TDiagramCMD(Cmd):
     El manejador procesa la entrada e indica si ese programa -en caso de existir- puede ser ejecutable, o
     indica error en caso de haber.
     """
-    pass
+    # Variable donde se guarda el resultado de la accion a realizar
+    result = 'No es posible ejecutar el programa \'' + command + '\''
 
+    try:
+      # Se envia al manejador
+      is_exec = self.handler.is_executable(command)
+
+      if is_exec:
+        result = 'Si, es posible ejecutar el programa \'' + command + '\''
+    except ValueError:
+      result = 'ERROR: el programa \'' + command + '\' no se ha definido.'
+
+    # Imprimimos por salida estandar el resultado
+    self.handle_output(result)
 
   # -------------- COMANDOS DE DOCUMENTACION DE COMANDOS EN REPL --------------
   def help_definir(self):
@@ -117,10 +129,11 @@ class TDiagramCMD(Cmd):
   # TODO: cambiar texto
   def help_ejecutable(self):
     print(dedent('''
-      Aplica el manejador del Buddy System para liberar memoria ya reservada.
+      Aplica el verificador de programas ejecutable del manejador de Diagramas T.
 
-      El manejador se encarga de procesar la entrada para enviarlo a la instancia
-      del Buddy System. En caso de error, se le notifica al usuario el problema.
+      El manejador se encarga de procesar la entrada para verificar si un programa
+      -en caso de existir- puede ser ejecutado. En caso de error, se le notifica
+      al usuario el problema.
 
       Su ejecucion se realiza mediante:
       >>> EJECUTABLE <nombre>'''))
