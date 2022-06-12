@@ -33,9 +33,9 @@ class Translator:
 
   # -------------- CONSTRUCTOR --------------
   def __init__(self, base_language: str, origin_language: str, destination_language: str):
-    self.base = base_language
-    self.origin = origin_language
-    self.destination = destination_language
+    self.base = base_language.upper()
+    self.origin = origin_language.upper()
+    self.destination = destination_language.upper()
 
   def __str__(self) -> str:
     return 'traductor de \'' + self.origin + '\' hacia \'' + self.destination +'\', escrito en \'' + self.base + '\''
@@ -54,8 +54,8 @@ class Interpreter:
   """
   # -------------- CONSTRUCTOR --------------
   def __init__(self, base_language: str, language: str):
-    self.base = base_language
-    self.language = language
+    self.base = base_language.upper()
+    self.language = language.upper()
 
    # -------------- DEFINICION DE STRINGS --------------
   def __str__(self) -> str:
