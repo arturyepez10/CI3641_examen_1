@@ -117,7 +117,9 @@ class TDiagramHandler:
           new_exec_lang.append(interpreter.language)
 
     # Actualizamos la lista de lenguajes ejectuables
-    self.executable_languages.extend(new_exec_lang)
+    for new_exec in new_exec_lang:
+      if new_exec not in self.executable_languages:
+        self.executable_languages.append(new_exec)
 
     # --------- Verificamos si los traductores generan lenguajes ejecutables
     new_exec_lang = []
@@ -128,5 +130,7 @@ class TDiagramHandler:
         new_exec_lang.append(translator.origin)
 
     # Actualizamos la lista de lenguajes ejectuables
-    self.executable_languages.extend(new_exec_lang)
+    for new_exec in new_exec_lang:
+      if new_exec not in self.executable_languages:
+        self.executable_languages.append(new_exec)
 

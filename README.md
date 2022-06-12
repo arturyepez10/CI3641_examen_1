@@ -31,3 +31,36 @@ Las respuestas fueron alojadas en diferentes ramas del repositorio. Las ramas di
 En cada una de las ramas, se pueden encontrar los archivos que forman su respectiva respuesta y ademas, en este mismo archivo se extiende para presentar una descripcion del problema, detalles de la implementacion y formas de uso.
 
 ---
+
+## Diagramas T
+
+Para esta pregunta se utilizo el lenguaje de programacion `Python`.
+
+
+Dado que el ejercicio requiere una interfaz que permita de forma interactiva ingresar comandos, se hizo la implementacion utilizando principios del paradigma de programacion orientado a objetos. Donde, entre las librerias de `Python`, se encuentra una que se puede utilizar para simular una `CMD` o `SHELL` al correr el script, totalmente personalizable[^note].
+
+Luego, se crearon tres modelos de datos tal que representen a los *Diagramas T* (ubicado en `models.py`):
+- `Program`, simulando a un programa definido en una computadora.
+- `Interpreter`, simulando a un interprete de lenguajes de programacion.
+- `Translator`, simulando a un traductor de lenguajes de programacion.
+
+Luego, tenemos una _"Clase padre"_ que maneja el uso de los modelos de datos para simular las operaciones y/o asociaciones entre ellos. Entre las caracteristicas de esta clase, se encuentran:
+- Lleva un recuento de todos los programas, interpretes y traductores creados.
+- Permite verificar si un programa es ejecutable o no.
+- Luego de cada operacion, se corre una subrutina que crea las conexiones entre los modelos de datos. Tal que, en caso de encontrar un nuevo __"lenguaje ejecutable"__, lo agrega a una lista que lleva la cuenta. Esto simplifica la verificacion de los programas ejecutables en un lenguaje en especifico, dado que no se debe verificar todas las asociaciones cada vez que se introduce el comando `EJECUTAR` sino solo una vez, ya sea cuando se agregue el traductor o interprete que termine de detectar; si se detecta un lenguaje ejecutable nuevo, se agrega a la lista.
+
+Para correr el programa, simplemente hay que ejecutar el siguiente comando desde el directorio del repositorio:
+```
+python run.py
+```
+
+Esto da inicio al simulador de `REPL`, donde se pueden utilizar los comandos descritos en los requerimientos del programa.
+
+[^note]:
+    En el REPL, todos los comandos son ajenos a __"case insensitive"__.
+
+[^note]:
+    Si te sientes agobiado por la cantidad de informacion, prueba a utilizar el comando `clear` :)
+
+[^note]:
+    Si quieres conocer la documentacion de un comando, simplemente escribe `help <comando>` en el REPL, o `help`/`?` para conocer la lista de comandos.
