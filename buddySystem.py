@@ -160,7 +160,6 @@ class BuddySystem:
     return data
 
   # -------------- MISCELÁNEA --------------
-  # TODO: check case when x == 1
   def nearest_block(self, x: int) -> int:
     """Encuentra la potencia de 2 mas cercana al numero que recibe por entrada.
 
