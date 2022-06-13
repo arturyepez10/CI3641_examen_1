@@ -1,6 +1,6 @@
 # ------------------------ IMPORTS ----------------------------- #
 # locals
-from models import Program, Translator, Interpreter
+from .models import Program, Translator, Interpreter
 
 # ------------------------ HANDLERS ----------------------------- #
 class TDiagramHandler:
@@ -41,8 +41,6 @@ class TDiagramHandler:
   def addTranslator(self, base_language: str, origin_language: str, destination_language: str) -> Translator:
     '''Crea un nuevo traductor y lo agrega a la lista de traductores.
     '''
-
-    # TODO: check if already exists (no obligatorio)
     
     # Nuevo traductor
     t = Translator(
@@ -62,8 +60,6 @@ class TDiagramHandler:
   def addInterpreter(self, base_language: str, language: str) -> Interpreter:
     '''Crea un nuevo interpretador de lenguage y lo agrega a la lista de lenguajes.
     '''
-
-    # TODO: check if already exists (no obligatorio)
     
     # Nuevo traductor
     i = Interpreter(base_language=base_language, language=language)

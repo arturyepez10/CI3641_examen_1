@@ -6,7 +6,7 @@ import os
 import re
 
 # locals
-from TDiagramHandler import TDiagramHandler
+from TDiagrams.handler import TDiagramHandler
 from utils.constants import *
 
 # ------------------------ REPL ----------------------------- #

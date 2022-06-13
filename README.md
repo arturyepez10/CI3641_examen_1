@@ -56,6 +56,14 @@ python run.py
 
 Esto da inicio al simulador de `REPL`, donde se pueden utilizar los comandos descritos en los requerimientos del programa.
 
+### Unit Testing
+
+Esta pregunta cuenta con algunas pruebas unitarias asociadas a la implementacion de los modulos de este. Para correrlas, simplemente ejecuta el siguiente comando desde el directorio del repositorio:
+
+```
+python -m tests -v
+```
+
 ---
 ### Pie de Pagina
 
