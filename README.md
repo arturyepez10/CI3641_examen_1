@@ -31,3 +31,17 @@ Las respuestas fueron alojadas en diferentes ramas del repositorio. Las ramas di
 En cada una de las ramas, se pueden encontrar los archivos que forman su respectiva respuesta y ademas, en este mismo archivo se extiende para presentar una descripcion del problema, detalles de la implementacion y formas de uso.
 
 ---
+
+## MODULO DE CUATERNIONES
+
+Para esta pregunta se utilizo el lenguaje de programacion `ADA`[^1].
+
+La estrutura del directorio es la siguiente:
+
+- `a/`: Contiene todos los archivos de ejemplos para la preguntas 1(a).
+- `b/`: Contiene todos los archivos de ejemplos para la pregunta 1(b), donde se identifican de la siguiente manera:
+  - `k-mod.ads` y `k-mod.adb`: Contienen el codigo responsable de implementar el k-esimo modulo para un numero.
+  - `multiplication-matrices.ads` y `multiplication-matrices.adb`: Contienen el codigo responsable de implementar la multiplicacion de dos matrices, como operacion aritmetica.
+
+
+[^1]: Debido a que el lenguaje de programacion `ADA` comienza por A, la primera letra del nombre del estudiante Arturo.
