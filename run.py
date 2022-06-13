@@ -7,8 +7,6 @@ from shell import BuddySystemCMD
 
 # ------------------------ INIT ----------------------------- #
 if __name__ == '__main__':
-  enter = True
-
   if len(argv) == 2:
     repl = BuddySystemCMD(int(argv[1]))
 

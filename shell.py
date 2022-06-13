@@ -6,7 +6,7 @@ import os
 import re
 
 # locals
-from buddySystem import BuddySystem
+from MemoryHandler.buddySystem import BuddySystem
 from utils.constants import *
 
 # ------------------------ REPL ----------------------------- #
@@ -113,25 +113,12 @@ class BuddySystemCMD(Cmd):
       Su ejecucion se realiza mediante:
       >>> LIBERAR <nombre>'''))
 
-  # TODO: completar
   def help_mostrar(self):
     print(dedent('''
-      Imprime por salida estándar una lista de errores almacenados hasta
-        el momento, en orden cronológico, con el siguiente formato:
+      Pide al manejador del Buddy System los datos del uso de la memoria.
 
-        [
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-                    .                 .                     .
-                    .                 .                     .
-                    .                 .                     .
-            (<ruta_a_archivo>, <línea_de_error>, <descripción_del_error>),
-        ]
-    --------------
-      Aplica el manejador del Buddy System para liberar memoria ya reservada.
-
-      El manejador se encarga de procesar la entrada para enviarlo a la instancia
-      del Buddy System. En caso de error, se le notifica al usuario el problema.
+      El manejador se encarga de procesar la entrada, y retorna una lista con 
+      la data de uso de la memoria.
 
       Su ejecucion se realiza mediante:
       >>> MOSTRAR'''))

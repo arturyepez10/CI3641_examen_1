@@ -38,7 +38,7 @@ class BuddySystem:
 
     # Verificamos que el nombre no este tomado ya
     if self.block_exists(name):
-      return 'ERROR: el nombre (' + name + ') ya esta asignado a otro bloque de memoria.'
+      return 'ERROR: el nombre (\'' + name + '\') ya esta asignado a otro bloque de memoria.'
 
     # Asignamos memoria
     if self.total_free_memory < allocation_qty:
@@ -72,8 +72,6 @@ class BuddySystem:
 
         # Actualizamos la cantidad total de memoria disponible
         self.total_free_memory -= allocation_qty
-      else:
-        result = 'ERROR: no existe un bloque contiguo de memoria disponible (' + str(size) + ' -> ' + str(allocation_qty) +' bloques).'
 
     return result
 
