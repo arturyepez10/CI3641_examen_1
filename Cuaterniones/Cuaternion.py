@@ -38,7 +38,7 @@ class Cuaternion:
     c = self.c if len(str(self.c)) == 1 else '(' + str(self.c) + ')'
     d = self.d if len(str(self.d)) == 1 else '(' + str(self.d) + ')'
 
-    return '{} + {}.i + {}.j + {}.k)'.format(a, b, c, d)
+    return '{} + {} + {}j + {}k'.format(a, b, c, d)
 
   # -------------- SOBRECARGA DE OPERADORES --------------
   def __add__(self, other):
